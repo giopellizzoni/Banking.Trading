@@ -2,13 +2,13 @@
 
 namespace Banking.Trading.Domain.ValueObject;
 
-public record Price
+public sealed record Price
 {
     public decimal Value { get; }
 
     private Price(decimal value) => Value = value;
 
-    protected Price()
+    private Price()
     {
     }
 

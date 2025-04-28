@@ -2,12 +2,12 @@
 
 namespace Banking.Trading.Domain.ValueObject;
 
-public record TradeId
+public sealed record TradeId
 {
     public Guid Value { get; }
     private TradeId(Guid value) => Value = value;
 
-    protected TradeId()
+    private TradeId()
     {
     }
 

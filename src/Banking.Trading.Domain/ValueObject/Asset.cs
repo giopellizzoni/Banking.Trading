@@ -2,13 +2,13 @@
 
 namespace Banking.Trading.Domain.ValueObject;
 
-public record Asset
+public sealed record Asset
 {
     public string Value { get; }
 
     private Asset(string value) => Value = value;
 
-    protected Asset()
+    private Asset()
     {
     }
 

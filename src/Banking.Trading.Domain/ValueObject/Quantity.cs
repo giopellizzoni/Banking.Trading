@@ -2,13 +2,13 @@
 
 namespace Banking.Trading.Domain.ValueObject;
 
-public record Quantity
+public sealed record Quantity
 {
     public int Value { get; }
 
     private Quantity(int value) => Value = value;
 
-    protected Quantity()
+    private Quantity()
     {
     }
 
