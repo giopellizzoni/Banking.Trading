@@ -6,7 +6,7 @@ namespace Banking.Trading.Application.Services;
 
 public interface ITradeService
 {
-    Task ExecuteTrade(TradeInputModel trade);
+    Task<TradeOutputModel> ExecuteTrade(TradeInputModel trade);
     Task<IEnumerable<TradeOutputModel>> GetAllTrades();
     Task<TradeOutputModel?> GetTradeById(Guid id);
 }

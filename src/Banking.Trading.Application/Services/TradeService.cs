@@ -25,7 +25,7 @@ public sealed class TradeService : ITradeService
         _messageBus = messageBus;
     }
 
-    public async Task ExecuteTrade(TradeInputModel inputModel)
+    public async Task<TradeOutputModel> ExecuteTrade(TradeInputModel inputModel)
     {
         _logger.LogInformation("Executing trade: {Trade}", inputModel);
 
@@ -38,6 +38,9 @@ public sealed class TradeService : ITradeService
             _logger.LogInformation("Publishing event: {@Event}", domainEvent);
             await _messageBus.PublishMessageAsync(@domainEvent);
         }
+
+        var outputModel = trade.Adapt<TradeOutputModel>();
+        return outputModel;
     }
 
     public async Task<IEnumerable<TradeOutputModel>> GetAllTrades()
