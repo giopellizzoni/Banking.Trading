@@ -23,6 +23,13 @@ services:
 
   banking.trading.api:
     image: banking.trading.api
+    depends_on:
+      - trade-db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
     build:
       context: .
       dockerfile: src/Banking.Trading.API/Dockerfile
+    ports:
+      - "5000:8080"
+      - "5001:8081"
