@@ -2,7 +2,7 @@
 
 namespace Banking.Trading.Domain.ValueObject;
 
-public class Asset
+public record Asset
 {
     public string Value { get; }
 

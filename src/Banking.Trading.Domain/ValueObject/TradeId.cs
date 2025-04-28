@@ -2,7 +2,7 @@
 
 namespace Banking.Trading.Domain.ValueObject;
 
-public class TradeId
+public record TradeId
 {
     public Guid Value { get; }
     private TradeId(Guid value) => Value = value;

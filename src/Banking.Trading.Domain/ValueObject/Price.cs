@@ -2,7 +2,7 @@
 
 namespace Banking.Trading.Domain.ValueObject;
 
-public class Price
+public record Price
 {
     public decimal Value { get; }
 
