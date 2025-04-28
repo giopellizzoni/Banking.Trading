@@ -1,6 +1,13 @@
-﻿namespace Banking.Trading.Domain.Events;
+﻿using Banking.Trading.Domain.Aggregates;
 
-public class TradeCreatedEvent : IDomainEvent
+namespace Banking.Trading.Domain.Events;
+
+public sealed class TradeCreatedEvent : IDomainEvent
 {
+    public TradeCreatedEvent(Trade trade)
+    {
+        Trade = trade;
+    }
 
+    public Trade Trade { get; set; }
 }

@@ -1,13 +1,16 @@
-﻿using Banking.Trading.Domain.Aggregates;
-using Banking.Trading.Domain.Events;
+﻿using Banking.Trading.Application.DTO.InputModels;
+using Banking.Trading.Application.DTO.OutputModels;
+using Banking.Trading.Domain.Aggregates;
 using Banking.Trading.Domain.Repositories;
 using Banking.Trading.Infrastructure.Messaging;
+
+using Mapster;
 
 using Microsoft.Extensions.Logging;
 
 namespace Banking.Trading.Application.Services;
 
-public class TradeService : ITradeService
+public sealed class TradeService : ITradeService
 {
     private readonly ILogger<TradeService> _logger;
     private readonly ITradeRepository _tradeRepository;
@@ -22,28 +25,47 @@ public class TradeService : ITradeService
         _messageBus = messageBus;
     }
 
-    public async Task ExecuteTrade(Trade trade)
+    public async Task ExecuteTrade(TradeInputModel inputModel)
     {
-        _logger.LogInformation("Executing trade: {Trade}", trade);
+        _logger.LogInformation("Executing trade: {Trade}", inputModel);
+
+        var trade = inputModel.Adapt<Trade>();
 
         await _tradeRepository.AddTrade(trade);
-        var @event = new TradeCreatedEvent();
 
-        _logger.LogInformation("Trade created: {Trade}", @event);
-        await _messageBus.PublishMessageAsync(@event);
+        foreach (var domainEvent in trade.DomainEvents)
+        {
+            _logger.LogInformation("Publishing event: {@Event}", domainEvent);
+            await _messageBus.PublishMessageAsync(@domainEvent);
+        }
     }
 
-    public async Task<IEnumerable<Trade>> GetAllTrades()
+    public async Task<IEnumerable<TradeOutputModel>> GetAllTrades()
     {
         _logger.LogInformation("Getting all trades");
         var trades = await _tradeRepository.GetAllTrades();
-        return trades;
+
+        var allTrades = trades.ToList();
+        var tradesList = allTrades
+            .Select(t => t.Adapt<TradeOutputModel>());
+
+        _logger.LogInformation("Number of trades found: {Trades}", allTrades.Count);
+
+        return tradesList;
     }
 
-    public async Task<Trade?> GetTradeById(Guid id)
+    public async Task<TradeOutputModel?> GetTradeById(Guid id)
     {
         _logger.LogInformation("Getting trade by id: {TradeId}", id);
         var trade = await _tradeRepository.GetTradeById(id);
-        return trade;
+        if (trade != null)
+        {
+            _logger.LogInformation("Trade found: {Trade}", trade);
+            var tradeOutputModel = trade.Adapt<TradeOutputModel>();
+            return tradeOutputModel;
+        }
+
+        _logger.LogWarning("Trade not found: {TradeId}", id);
+        return null;
     }
 }

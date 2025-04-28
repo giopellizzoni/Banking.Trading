@@ -30,7 +30,7 @@ public class Trade : Aggregate
             ClientId = clientId
         };
 
-        trade.AddDomainEvent(new TradeCreatedEvent());
+        trade.AddDomainEvent(new TradeCreatedEvent(trade));
 
         return trade;
     }
