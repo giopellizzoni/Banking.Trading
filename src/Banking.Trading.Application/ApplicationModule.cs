@@ -1,6 +1,13 @@
-﻿namespace Banking.Trading.Application;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-public class ApplicationModule
+namespace Banking.Trading.Application;
+
+public static class ApplicationModule
 {
+
+    public static IServiceCollection AddApplication(this IServiceCollection services)
+    {
+        return services;
+    }
 
 }

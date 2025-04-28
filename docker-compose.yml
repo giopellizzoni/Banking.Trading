@@ -1,0 +1,28 @@
+services:
+  trade-db:
+    image: mcr.microsoft.com/mssql/server
+    container_name: trade-db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Tr1c0lor
+    restart: always
+    ports:
+      - "1433:1433"
+
+  message-broker:
+    image: rabbitmq:management
+    container_name: message-broker
+    hostname: ecommerce-mq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  banking.trading.api:
+    image: banking.trading.api
+    build:
+      context: .
+      dockerfile: src/Banking.Trading.API/Dockerfile
