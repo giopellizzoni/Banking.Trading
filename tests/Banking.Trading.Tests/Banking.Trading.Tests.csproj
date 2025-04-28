@@ -24,4 +24,8 @@
       <Folder Include="Application\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Banking.Trading.Domain\Banking.Trading.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
