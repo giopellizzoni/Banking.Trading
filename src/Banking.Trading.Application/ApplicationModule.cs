@@ -1,5 +1,6 @@
 ﻿namespace Banking.Trading.Application;
 
-public class Class1
+public class ApplicationModule
 {
+
 }

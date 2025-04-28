@@ -8,10 +8,6 @@ public sealed record Asset
 
     private Asset(string value) => Value = value;
 
-    private Asset()
-    {
-    }
-
     public static Asset Of(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
