@@ -23,10 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Application\" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\..\src\Banking.Trading.Application\Banking.Trading.Application.csproj" />
       <ProjectReference Include="..\..\src\Banking.Trading.Domain\Banking.Trading.Domain.csproj" />
       <ProjectReference Include="..\..\src\Banking.Trading.Infrastructure\Banking.Trading.Infrastructure.csproj" />
     </ItemGroup>

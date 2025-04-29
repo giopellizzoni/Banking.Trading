@@ -6,15 +6,24 @@ namespace Banking.Trading.Tests.Domain;
 
 public class TradeTests
 {
+    private Trade CreateTrade(
+        string asset,
+        int quantity,
+        decimal price,
+        Guid clientId)
+    {
+        return Trade.Create(
+            Asset.Of(asset),
+            Quantity.Of(quantity),
+            Price.Of(price),
+            ClientId.Of(clientId)
+        );
+    }
+
     [Fact]
     public void CreatingNewTrade_WithValidParameters_ShouldSuccessfullyCreateTrade()
     {
-        var trade = Trade.Create(
-            Asset.Of("AAPL"),
-            Quantity.Of(10),
-            Price.Of(150.00m),
-            ClientId.Of(Guid.NewGuid())
-        );
+        var trade = CreateTrade("AAPL", 10, 150.00m, Guid.NewGuid());
 
         Assert.NotNull(trade);
         Assert.Single(trade.DomainEvents);
@@ -33,33 +42,13 @@ public class TradeTests
         string? clientId)
     {
         Assert.Throws<DomainException>(() =>
-        {
-            Trade.Create(
-                Asset.Of(asset),
-                Quantity.Of(quantity),
-                Price.Of(price),
-                ClientId.Of(Guid.Parse(clientId))
-            );
-        });
+            CreateTrade(asset, quantity, price, Guid.Parse(clientId)));
     }
 
-    [Theory]
-    [InlineData("AAPL", 10, 150.00, "e2719b6e-1c4b-4b8e-9b6e-1c4b4b8e9b6e")]
-    [InlineData("AAPL", 10, 150.00, null)]
-    public void CreatingNewTrade_WithInvalidAdata_ShouldThrowArgumentNullException(
-        string? asset,
-        int quantity,
-        decimal price,
-        string? clientId)
+    [Fact]
+    public void CreatingNewTrade_WithInvalidAdata_ShouldThrowArgumentNullException()
     {
         Assert.Throws<ArgumentNullException>(() =>
-        {
-            Trade.Create(
-                Asset.Of(asset),
-                Quantity.Of(quantity),
-                Price.Of(price),
-                ClientId.Of(Guid.Parse(clientId))
-            );
-        });
+            CreateTrade("AAPL", 10, 150.00m, Guid.Parse(null)));
     }
 }

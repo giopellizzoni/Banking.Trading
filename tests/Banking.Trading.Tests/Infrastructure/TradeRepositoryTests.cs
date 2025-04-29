@@ -34,10 +34,10 @@ public class TradeRepositoryTests
             ClientId.Of(Guid.NewGuid())
         );
 
-        await _tradeRepository.AddTrade(trade);
+        await _tradeRepository.AddTrade(trade, CancellationToken.None);
         await _dbContext.SaveChangesAsync();
 
-        var savedTrade = await _tradeRepository.GetTradeById(trade.Id.Value);
+        var savedTrade = await _tradeRepository.GetTradeById(trade.Id.Value, CancellationToken.None);
 
         Assert.NotNull(savedTrade);
         Assert.Equal("AAPL", savedTrade.Asset.Value);
@@ -53,10 +53,10 @@ public class TradeRepositoryTests
             ClientId.Of(Guid.NewGuid())
         );
 
-        await _tradeRepository.AddTrade(trade);
+        await _tradeRepository.AddTrade(trade, CancellationToken.None);
         await _dbContext.SaveChangesAsync();
 
-        var fetchedTrade = await _tradeRepository.GetTradeById(trade.Id.Value);
+        var fetchedTrade = await _tradeRepository.GetTradeById(trade.Id.Value, CancellationToken.None);
 
         Assert.NotNull(fetchedTrade);
         Assert.Equal(trade.Id.Value, fetchedTrade.Id.Value);

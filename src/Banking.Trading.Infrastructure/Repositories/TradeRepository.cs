@@ -15,21 +15,35 @@ public class TradeRepository: ITradeRepository
         _dbContext = dbContext;
     }
 
-    public async Task AddTrade(Trade trade)
+    public async Task AddTrade(
+        Trade trade,
+        CancellationToken cancellationToken)
     {
-        await _dbContext.Trades.AddAsync(trade);
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.Trades.AddAsync(trade, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<Trade>> GetAllTrades()
+    public async Task<IEnumerable<Trade>> GetAllTrades(CancellationToken cancellationToken)
     {
-        return await _dbContext.Trades.ToListAsync();
+        return await _dbContext.Trades.ToListAsync(cancellationToken);
     }
 
-    public async Task<Trade?> GetTradeById(Guid id)
+    public async Task<Trade?> GetTradeById(
+        Guid id,
+        CancellationToken cancellationToken)
     {
         var trade = await _dbContext.Trades
-            .FirstOrDefaultAsync(t => t.Id.Value == id);
+            .FirstOrDefaultAsync(t => t.Id.Value == id, cancellationToken);
         return trade;
+    }
+
+    public async Task<IEnumerable<Trade>> GetTradesByClientId(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var trades = await _dbContext.Trades
+            .Where(t => t.ClientId.Value == id)
+            .ToListAsync(cancellationToken);
+        return trades;
     }
 }
