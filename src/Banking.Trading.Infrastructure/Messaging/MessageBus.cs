@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Banking.Trading.Infrastructure.Messaging;
 
-public class MessageBus: IMessageBus
+public sealed class MessageBus: IMessageBus
 {
     private readonly IBus _bus;
 

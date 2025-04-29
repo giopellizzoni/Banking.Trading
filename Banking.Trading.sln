@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banking.Trading.Domain", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banking.Trading.Infrastructure", "src\Banking.Trading.Infrastructure\Banking.Trading.Infrastructure.csproj", "{56A637B0-EE07-4FF5-8E8B-0EF3F96321D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banking.Tranding.Client", "client\Banking.Tranding.Client\Banking.Tranding.Client.csproj", "{824B0B31-541B-422F-A41F-39A07BE92205}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banking.Trading.Client", "client\Banking.Trading.Client\Banking.Trading.Client.csproj", "{824B0B31-541B-422F-A41F-39A07BE92205}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banking.Trading.Tests", "tests\Banking.Trading.Tests\Banking.Trading.Tests.csproj", "{B57C8499-12FC-45F4-A059-98929EEC71CB}"
 EndProject
