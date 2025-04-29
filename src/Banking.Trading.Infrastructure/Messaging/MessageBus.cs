@@ -1,11 +1,23 @@
 ﻿using Banking.Trading.Domain.Events;
 
+using MassTransit;
+
 namespace Banking.Trading.Infrastructure.Messaging;
 
 public class MessageBus: IMessageBus
 {
-    public Task PublishMessageAsync(IDomainEvent message)
+    private readonly IBus _bus;
+
+    public MessageBus(IBus bus)
     {
-        throw new NotImplementedException();
+        _bus = bus;
+    }
+
+    public async Task PublishMessageAsync(IDomainEvent message)
+    {
+        var uri = new Uri("queue:trading-execution");
+        var endPoint = await _bus.GetSendEndpoint(uri);
+
+        await endPoint.Send(message);
     }
 }

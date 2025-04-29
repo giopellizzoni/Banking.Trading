@@ -4,10 +4,19 @@ namespace Banking.Trading.Domain.Events;
 
 public sealed class TradeCreatedEvent : IDomainEvent
 {
-    public TradeCreatedEvent(Trade trade)
+    public TradeCreatedEvent(Guid tradeId,
+        string asset,
+        Guid clientId,
+        DateTime executedAt)
     {
-        Trade = trade;
+        TradeId = tradeId;
+        Asset = asset;
+        ClientId = clientId;
+        ExecutedAt = executedAt;
     }
 
-    public Trade Trade { get; set; }
+    public Guid TradeId { get; set; }
+    public string Asset { get; set; }
+    public Guid ClientId { get; set; }
+    public DateTime ExecutedAt { get; set; }
 }

@@ -11,14 +11,6 @@ public static class MapsterConfig
 {
     public static void RegisterMappings()
     {
-        TypeAdapterConfig<TradeInputModel, Trade>.NewConfig()
-            .Map(dest => dest.Id, src => TradeId.Of(Guid.NewGuid()))
-            .Map(dest => dest.Asset, src => Asset.Of(src.Asset))
-            .Map(dest => dest.Quantity, src => Quantity.Of(src.Quantity))
-            .Map(dest => dest.Price, src => Price.Of(src.Price))
-            .Map(dest => dest.ExecutedAt, src => DateTime.UtcNow)
-            .Map(dest => dest.ClientId, src => ClientId.Of(src.ClientId));
-
         TypeAdapterConfig<Trade, TradeOutputModel>.NewConfig()
             .Map(dest => dest.Id, src => src.Id.Value)
             .Map(dest => dest.Asset, src => src.Asset.Value)

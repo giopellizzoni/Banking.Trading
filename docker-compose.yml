@@ -31,5 +31,5 @@ services:
       context: .
       dockerfile: src/Banking.Trading.API/Dockerfile
     ports:
-      - "5000:8080"
-      - "5001:8081"
+      - "5050:8080"
+      - "5051:8081"

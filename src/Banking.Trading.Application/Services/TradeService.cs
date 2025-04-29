@@ -2,6 +2,7 @@
 using Banking.Trading.Application.DTO.OutputModels;
 using Banking.Trading.Domain.Aggregates;
 using Banking.Trading.Domain.Repositories;
+using Banking.Trading.Domain.ValueObject;
 using Banking.Trading.Infrastructure.Messaging;
 
 using Mapster;
@@ -29,7 +30,7 @@ public sealed class TradeService : ITradeService
     {
         _logger.LogInformation("Executing trade: {Trade}", inputModel);
 
-        var trade = inputModel.Adapt<Trade>();
+        var trade = inputModel.ToEntity();
 
         await _tradeRepository.AddTrade(trade);
 

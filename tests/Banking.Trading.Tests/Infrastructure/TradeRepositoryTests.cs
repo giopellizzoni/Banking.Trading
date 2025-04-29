@@ -28,7 +28,6 @@ public class TradeRepositoryTests
     public async Task AddingTrade_SimpleTrade_ShouldPersistTrade()
     {
         var trade = Trade.Create(
-            TradeId.Of(Guid.NewGuid()),
             Asset.Of("AAPL"),
             Quantity.Of(10),
             Price.Of(150.00m),
@@ -48,7 +47,6 @@ public class TradeRepositoryTests
     public async Task GetTradeById_SimpleTrade_ShouldReturnTrade()
     {
         var trade = Trade.Create(
-            TradeId.Of(Guid.NewGuid()),
             Asset.Of("AAPL"),
             Quantity.Of(10),
             Price.Of(150.00m),
