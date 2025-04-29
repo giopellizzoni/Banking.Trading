@@ -1,4 +1,5 @@
 ﻿using Banking.Trading.Domain.Aggregates;
+using Banking.Trading.Domain.Interfaces;
 
 namespace Banking.Trading.Domain.Events;
 

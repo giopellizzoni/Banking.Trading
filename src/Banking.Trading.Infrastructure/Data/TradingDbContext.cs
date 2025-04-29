@@ -1,4 +1,6 @@
-﻿using Banking.Trading.Domain.Aggregates;
+﻿using System.Reflection;
+
+using Banking.Trading.Domain.Aggregates;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +16,7 @@ public class TradingDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TradingDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
     }
 }
