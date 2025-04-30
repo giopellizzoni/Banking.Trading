@@ -8,6 +8,8 @@ services:
     restart: always
     ports:
       - "1433:1433"
+    volumes:
+      - trade_db_data:/var/opt/mssql
 
   message-broker:
     image: rabbitmq:management
@@ -21,15 +23,24 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-  banking.trading.api:
+  banking-trading-api:
     image: banking.trading.api
     depends_on:
       - trade-db
+      - message-broker
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=trade-db,1433;Database=BankingTradingDb;User Id=sa;Password=Tr1c0lor;TrustServerCertificate=True;
+      - RabbitMq__Host=amqp://message-broker:5672
+      - RabbitMq__Username=guest
+      - RabbitMq__Password=guest
     build:
       context: .
       dockerfile: src/Banking.Trading.API/Dockerfile
     ports:
       - "5050:8080"
       - "5051:8081"
+
+volumes:
+  trade_db_data:
+    driver: local
